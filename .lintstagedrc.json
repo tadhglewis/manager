@@ -3,7 +3,7 @@
     "htmlhint 'packages/**/*.html'"
   ],
   "*.js": [
-    "eslint --fix",
+    "prettier --write",
     "git add"
   ],
   "*.less": [
