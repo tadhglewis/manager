@@ -367,6 +367,9 @@ export const ORDER_URLS = {
     express_review_base: {
       US: 'https://us.ovhcloud.com/order/express/#/express/review',
     },
+    vps: {
+      US: 'https://us.ovhcloud.com/order/vps-preprod/#/vps/build',
+    },
   },
 };
 
@@ -439,7 +442,7 @@ export const SIDEBAR_ORDER_CONFIG = [
     target: '_blank',
     external: true,
     app: [CLOUD],
-    regions: ['EU', 'CA'],
+    regions: ['EU', 'CA', 'US'],
   },
   {
     id: 'order-private-cloud',
