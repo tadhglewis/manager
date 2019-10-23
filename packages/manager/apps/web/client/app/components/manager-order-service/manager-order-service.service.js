@@ -31,6 +31,15 @@ export default class OrderService {
       .$promise;
   }
 
+  addProductToCart(cartId, productName, product) {
+    return this.OvhApiOrder.Cart().Product().v6()
+      .post({
+        cartId,
+        productName,
+      }, product)
+      .$promise;
+  }
+
   getProductOptions(cartId, productName, productPlanCode) {
     return this.OvhApiOrder.Cart().Product().v6()
       .getOptions({
@@ -47,7 +56,8 @@ export default class OrderService {
         cartId,
         productName,
         ...option,
-      });
+      })
+      .$promise;
   }
 
   addConfigurationItem(cartId, itemId, item) {
