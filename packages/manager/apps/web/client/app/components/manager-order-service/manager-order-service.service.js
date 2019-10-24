@@ -60,12 +60,14 @@ export default class OrderService {
       .$promise;
   }
 
-  addConfigurationItem(cartId, itemId, item) {
+  addConfigurationItem(cartId, itemId, label, value) {
     return this.OvhApiOrder.Cart().Item().Configuration().v6()
       .post({
         cartId,
         itemId,
-        item,
+      }, {
+        label,
+        value,
       })
       .$promise;
   }
@@ -83,6 +85,35 @@ export default class OrderService {
       .checkout({
         cartId,
         ...checkout,
+      })
+      .$promise;
+  }
+
+  getProductPublicCatalog(ovhSubsidiary, productName) {
+    return this.OvhApiOrder.Catalog().Public().v6()
+      .get({
+        ovhSubsidiary,
+        productName,
+      })
+      .$promise;
+  }
+
+  getProductServiceOptions(productName, serviceName) {
+    return this.OvhApiOrder.CartServiceOption().v6()
+      .get({
+        productName,
+        serviceName,
+      })
+      .$promise;
+  }
+
+  addProductServiceOptionToCart(cartId, productName, serviceName, serviceOption) {
+    return this.OvhApiOrder.CartServiceOption().v6()
+      .post({
+        cartId,
+        productName,
+        serviceName,
+        ...serviceOption,
       })
       .$promise;
   }
