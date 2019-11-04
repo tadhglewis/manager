@@ -42,34 +42,31 @@ export default class SupportNewController {
   }
 
   onCreationFormSubmit(result) {
-    // user validates the form, post the ticket
-    if (result.isSuccess) {
-      this.step = 'creating';
-      this.SupportNewTicketService.createTicket(
-        result.issue,
-        result.subject,
-        get(this.service, 'serviceName'),
-        get(result, 'urgency'),
-      )
-        .then(({ ticketId }) => this.SupportNewTicketService.getTicket(ticketId))
-        .then((ticket) => {
-          this.step = 'created';
-          this.ticketId = ticket.ticketId;
-          this.ticketNumber = ticket.ticketNumber;
-        }).catch((error) => {
-          this.error = {
-            message: (error.data || { message: error.statusText }).message,
-          };
-          if (angular.isFunction(error.headers)) {
-            this.error.queryId = error.headers('x-ovh-queryid');
-          }
-          this.step = 'error';
-        });
-    // user cancelled the form, go back to tickets list
-    } else {
-      this.step = 'issues';
-      this.issue = null;
-    }
+    this.step = 'creating';
+    this.SupportNewTicketService.createTicket(
+      result.issue,
+      result.subject,
+      get(this.service, 'serviceName'),
+      get(result, 'urgency'),
+    )
+      .then(({ ticketId }) => this.SupportNewTicketService.getTicket(ticketId))
+      .then((ticket) => {
+        this.step = 'created';
+        this.ticketId = ticket.ticketId;
+        this.ticketNumber = ticket.ticketNumber;
+      }).catch((error) => {
+        this.error = {
+          message: (error.data || { message: error.statusText }).message,
+        };
+        if (angular.isFunction(error.headers)) {
+          this.error.queryId = error.headers('x-ovh-queryid');
+        }
+        this.step = 'error';
+      });
+  }
+
+  goBack() {
+    this.step = 'issues';
   }
 
   handleBackButton() {
