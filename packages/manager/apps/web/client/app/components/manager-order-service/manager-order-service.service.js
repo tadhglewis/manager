@@ -1,6 +1,7 @@
 export default class OrderService {
   /* @ngInject */
-  constructor(OvhApiOrder) {
+  constructor($q, OvhApiOrder) {
+    this.$q = $q;
     this.OvhApiOrder = OvhApiOrder;
   }
 
@@ -116,5 +117,23 @@ export default class OrderService {
         ...serviceOption,
       })
       .$promise;
+  }
+
+  getCartItems(cartId) {
+    return this.OvhApiOrder.Cart().Item().v6()
+      .query({ cartId }).$promise;
+  }
+
+  deleteItem(cartId, itemId) {
+    return this.OvhApiOrder.Cart().Item().v6()
+      .delete({ cartId, itemId }).$promise;
+  }
+
+  deleteAllItems(cartId) {
+    this.OvhApiOrder.Cart().Item().v6().resetQueryCache();
+    return this.getCartItems(cartId)
+      .then(itemsId => this.$q.all(
+        itemsId.map(id => this.deleteItem(cartId, id)),
+      ));
   }
 }
