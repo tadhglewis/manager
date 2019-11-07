@@ -37,6 +37,7 @@ import uiRouter, { RejectType } from '@uirouter/angularjs';
 
 import moduleExchange from '@ovh-ux/manager-exchange';
 import ovhManagerVeeamEnterprise from '@ovh-ux/manager-veeam-enterprise';
+import ovhManagerIplb from '@ovh-ux/manager-iplb';
 import account from './account';
 import config from './config/config';
 import contactsService from './account/contacts/service/contacts-service.module';
@@ -105,6 +106,7 @@ angular
     'ovh-angular-responsive-tabs',
     'ovh-api-services',
     ovhManagerPccDashboard,
+    ovhManagerIplb,
     ovhManagerPccResourceUpgrade,
     ovhManagerServerSidebar,
     ovhManagerSupport,
