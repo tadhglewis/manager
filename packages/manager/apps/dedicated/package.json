@@ -27,6 +27,7 @@
     "@ovh-ux/manager-navbar": "^2.1.0",
     "@ovh-ux/manager-server-sidebar": "^0.7.0",
     "@ovh-ux/manager-support": "^0.4.0",
+    "@ovh-ux/manager-vrack": "^0.3.2",
     "@ovh-ux/mfa-enrollment": "^0.0.0 || ^1.0.0",
     "@ovh-ux/manager-veeam-enterprise": "^0.0.0",
     "@ovh-ux/ng-at-internet": "^4.0.2",
