@@ -1,5 +1,6 @@
 import angular from 'angular';
 
+import cucAdvancedOptions from './cui/advanced-options';
 import cucAutofocus from './autofocus';
 import cucAutoSelect from './autoselect';
 import cucBytes from './bytes';
@@ -31,6 +32,7 @@ const moduleName = 'ngOvhCloudUniverseComponents';
 angular
   .module(moduleName, [
     cui,
+    cucAdvancedOptions,
     cucAutofocus,
     cucAutoSelect,
     cucBytes,
