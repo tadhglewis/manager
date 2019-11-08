@@ -22,29 +22,61 @@
             <oui-field
                 data-label="{{:: 'hosting_sql_database_order_type' | translate }}">
                 <oui-radio
-                    data-ng-repeat="item in $ctrl.data track by $index"
-                    data-description="{{:: 'hosting_sql_database_order_type_' + item.key + '_text' | translate }}"
-                    data-model="$ctrl.model.type"
-                    data-value="item.offer"
-                    data-disabled="item.key ==='start' && (!item.hostings || item.hostings.length === 0)"
+                    data-ng-repeat="(key, value) in $ctrl.serviceOptions track by $index"
+                    data-description="{{:: 'hosting_sql_database_order_type_' + key + '_text' | translate }}"
+                    data-model="$ctrl.serviceOption"
+                    data-value="key"
+                    data-disabled="!value.length"
                     data-required>
-                    <span data-translate="{{:: 'hosting_sql_database_order_type_' + item.key + '_label' | translate }}"></span>
-                    <span class="oui-icon oui-icon_inherit oui-icon-help_circle ml-2"
-                        data-oui-tooltip="Youpi">
-                    </span>
+                    <span data-translate="{{:: 'hosting_sql_database_order_type_' + key + '_label' | translate }}"></span>
+                    <!-- data-ng-if="value.length" -->
+                    <button class="oui-popover-button"
+                        tabindex="0"
+                        type="button"
+                        data-oui-popover
+                        data-oui-popover-scope="$ctrl"
+                        data-oui-popover-template="{{:: 'hosting_sql_database_order_' + key + '.html' }}">
+                    </button>
                 </oui-radio>
             </oui-field>
         </oui-step-form>
+
+        <script type="text/ng-template" id="hosting_sql_database_order_privateSQL.html">
+            <p data-translate="hosting_sql_database_order_type_privateSQL_popover_title"></p>
+            <ul>
+                <li data-translate="hosting_sql_database_order_type_privateSQL_popover_line_1"></li>
+
+                <!-- TODO: Need to change values (see infos from API) -->
+                <li data-translate="hosting_sql_database_order_type_privateSQL_popover_line_2"
+                    data-translate-values="{ t0: item.tooltips.rams.min, t1: item.tooltips.rams.max }">
+                </li>
+                <li data-translate="hosting_sql_database_order_type_privateSQL_popover_line_3"></li>
+                <li data-translate="hosting_sql_database_order_type_privateSQL_popover_line_4"></li>
+                <li data-translate="hosting_sql_database_order_type_privateSQL_popover_line_5"></li>
+                <li data-translate="hosting_sql_database_order_type_privateSQL_popover_line_6"></li>
+            </ul>
+
+        </script>
+
+        <script type="text/ng-template" id="hosting_sql_database_order_startSQL.html">
+            <p data-translate="hosting_sql_database_order_type_startSQL_popover_title"></p>
+            <ul>
+                <li data-translate="hosting_sql_database_order_type_startSQL_popover_line_1"></li>
+                <li data-translate="hosting_sql_database_order_type_startSQL_popover_line_2"></li>
+                <li data-translate="hosting_sql_database_order_type_startSQL_popover_line_3"></li>
+                <li data-translate="hosting_sql_database_order_type_startSQL_popover_line_4"></li>
+            </ul>
+        </script>
 
         <!-- Customization -->
         <oui-step-form
             data-header="{{:: 'hosting_sql_database_order_step_header_customize' | translate }}">
 
-            <!-- Pack -->
+            <!-- Pack (startSQL) -->
             <oui-field
                 data-ng-if="$ctrl.isStart()"
                 data-label="{{:: 'hosting_sql_database_order_domains_pack' | translate }}"
-                data-help-text="{{:: 'hosting_sql_database_order_type_start_hosting_info' | translate }}"
+                data-help-text="{{:: 'hosting_sql_database_order_type_startSQL_hosting_info' | translate }}"
                 data-size="xl">
                 <div class="oui-select oui-select_inline">
                     <select class="oui-select__input" id="startDbVersion" name="startDbVersion" required
@@ -59,7 +91,7 @@
                 </div>
             </oui-field>
 
-            <!-- Version -->
+            <!-- Version (privateSQL) -->
             <oui-field
                 data-ng-if="$ctrl.isCloudDbOrPrivateDb()"
                 data-label="{{:: 'hosting_sql_database_order_version' | translate }}"
@@ -72,7 +104,7 @@
                 </oui-select>
             </oui-field>
 
-            <!-- RAM -->
+            <!-- RAM (privateSQL) -->
             <oui-field
                 data-ng-if="$ctrl.isCloudDbOrPrivateDb()"
                 data-label="{{:: 'hosting_sql_database_order_ram' | translate }}"
@@ -86,7 +118,7 @@
                 </oui-select>
             </oui-field>
 
-            <!-- Hosting -->
+            <!-- Hosting (startSQL, privateSQL) -->
             <oui-field
                 data-ng-if="!$ctrl.isCloudDb()"
                 data-label="{{:: 'hosting_sql_database_order_hosting' | translate }}"
@@ -99,6 +131,20 @@
                     <!-- data-required> -->
                 </oui-select>
             </oui-field>
+
+            <!-- DataCenter (privateSQL) -->
+            <oui-field
+                data-ng-if="$ctrl.isPrivateDb() && $ctrl.model.hosting === $ctrl.noHostValue"
+                data-label="{{:: 'hosting_sql_database_order_datacenter' | translate }}"
+                data-help-text="{{:: 'hosting_sql_database_order_no_hosting_warning' | translate }}"
+                data-size="xl">
+                <oui-select id="orderDc" name="orderDc"
+                    data-model="$ctrl.model.datacenter"
+                    data-items="$ctrl.getData($ctrl.model.type).datacenters"
+                    data-required>
+                    <span data-translate="{{::'hosting_sql_database_order_datacenter_value_' + $item }}"></span>
+                </oui-select>
+            </oui-field>
         </oui-step-form>
 
         <!-- Duration -->
@@ -107,7 +153,7 @@
             data-loading="$ctrl.loading.durations && $ctrl.loading.prices"
             data-on-focus="$ctrl.getDuration()">
             <oui-message data-type="warning"
-                            data-ng-if="$ctrl.shouldDisplayFreeDbWarning()">
+                data-ng-if="$ctrl.shouldDisplayFreeDbWarning()">
                 <h3 class="h5" data-translate="hosting_sql_database_order_included_title"></h3>
                 <span data-translate="hosting_sql_database_order_included_info"
                         data-translate-values="{
@@ -123,7 +169,7 @@
                     data-ovh-alert-hide-remove-button>
             </div>
 
-            <!-- <oui-field
+            <oui-field
                 data-label="{{:: 'hosting_sql_database_order_duration' | translate }}">
                 <oui-radio
                     name="interval"
@@ -133,13 +179,13 @@
                     data-on-change="$ctrl.resetOrder()"
                     data-required>
                     <span data-ng-bind=":: duration.duration | wucDuration:'longDate'"></span>&nbsp;:&nbsp;
-                    <order-catalog-price
+                    <ovh-manager-order-catalog-price
                         data-price="duration.details.prices.withoutTax.value"
                         data-tax="duration.details.prices.tax.value"
                         data-user="$ctrl.user">
-                    </order-catalog-price>
+                    </ovh-manager-order-catalog-price>
                 </oui-radio>
-            </oui-field> -->
+            </oui-field>
 
             <fieldset>
                 <legend class="border-0"
@@ -174,12 +220,12 @@
             data-prevent-next>
 
             <!-- Contracts -->
-            <order-contracts
+            <ovh-manager-order-contracts
                 name="contractsValidated"
                 data-ng-if="$ctrl.getDurationDetails($ctrl.model.type, $ctrl.model.duration).contracts.length > 0"
                 data-items="$ctrl.getDurationDetails($ctrl.model.type, $ctrl.model.duration).contracts"
                 data-model="$ctrl.model.contract">
-            </order-contracts>
+            </ovh-manager-order-contracts>
         </oui-step-form>
     </oui-stepper>
 </div>

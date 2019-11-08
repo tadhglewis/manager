@@ -5,7 +5,9 @@ export default {
   controller,
   template,
   bindings: {
+    catalogProducts: '<',
     goBack: '<',
+    serviceOptions: '<',
     user: '<',
   },
 };
