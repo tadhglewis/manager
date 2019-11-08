@@ -56,12 +56,14 @@ export default class DomainTabGeneralInformationsCtrl {
     this.domainInfos = this.$scope.ctrlDomain.domainInfos;
     this.allDom = this.$scope.ctrlDomain.allDom;
     this.allDomInfos = this.$scope.ctrlDomain.allDomInfos;
+    this.associatedHostings = this.$scope.ctrlDomain.associatedHostings;
+    this.orderedHosting = this.$scope.ctrlDomain.orderedHosting;
     this.displayFreeHosting = false;
     this.domainUnlockRegistry = this.constants.DOMAIN.domainUnlockRegistry[
       last(this.domain.displayName.split('.')).toUpperCase()
     ];
     this.goToWebhostingOrder = this.$scope.ctrlDomain.goToWebhostingOrder;
-    this.hasHostingAssociate = false;
+    this.hasAssociatedHostings = false;
     this.hasStart10mOffer = false;
     this.isAllDom = this.$rootScope.currentSectionInformation === 'all_dom';
     this.isUK = last(this.domain.name.split('.')).toUpperCase() === 'UK';
@@ -135,7 +137,7 @@ export default class DomainTabGeneralInformationsCtrl {
     this.setSwitchStates();
     this.getAllNameServer(this.domain.name);
     this.getHostingInfos(this.domain.name);
-    this.getAssociatedHosting(this.domain.name);
+    this.getAssociatedHostingsSubdomains();
     this.getAllOptionDetails(this.domain.name);
     this.updateOwnerUrl = this.getUpdateOwnerUrl(this.domain);
 
@@ -301,22 +303,31 @@ export default class DomainTabGeneralInformationsCtrl {
       });
   }
 
-  getAssociatedHosting(serviceName) {
+  getAssociatedHostingsSubdomains() {
     this.loading.associatedHosting = true;
-    this.hostingAssociated = [];
-    return this.HostingDomain.getAttachedDomains(serviceName, {
-      returnErrorKey: '',
-    })
+    this.subdomainsAndMultisites = [];
+
+    this.hasAssociatedHostings = this.associatedHostings.length > 0;
+
+    return this.$q.all(
+      this.associatedHostings
+        .map(hosting => this.HostingDomain.getAttachedDomains(hosting, {
+          returnErrorKey: '',
+        })),
+    )
+      .then(allAssociatedHosting => allAssociatedHosting.flatten())
       .then((response) => {
         if (isArray(response) && !isEmpty(response)) {
-          this.hasHostingAssociate = true;
+          this.hasSubdomainsOrMultisites = true;
 
           // I would say I should get the first item only,
           // but the api returns an array, so I assume there can be multiple attached domains.
-          this.hostingAssociated = map(response, item => ({
-            name: item,
-            url: `#/configuration/hosting/${item}`,
-          }));
+          this.subdomainsAndMultisites = map(
+            Array.from(new Set(response)), item => ({
+              name: item,
+              url: `#/configuration/hosting/${item}`,
+            }),
+          );
         }
       })
       .catch((err) => {

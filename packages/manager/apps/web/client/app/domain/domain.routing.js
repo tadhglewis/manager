@@ -1,4 +1,5 @@
 import clone from 'lodash/clone';
+import snakeCase from 'lodash/snakeCase';
 
 import dnsState from './dns/domain-dns.state';
 import redirectionState from './redirection/domain-redirection.state';
@@ -24,6 +25,10 @@ export default /* @ngInject */ ($stateProvider) => {
     },
     redirectTo: 'app.domain.product.information',
     resolve: {
+      associatedHostings: /* @ngInject */ (
+        Domain,
+        domainName,
+      ) => Domain.getAssociatedHosting(domainName),
       currentSection: () => 'domain',
       domain: /* @ngInject */ (Domain, domainName) => Domain
         .getSelected(domainName),
@@ -41,6 +46,15 @@ export default /* @ngInject */ ($stateProvider) => {
           });
         },
       ],
+      orderedHosting: /* @ngInject */ (
+        $q,
+        domainName,
+        Hosting,
+        DOMAIN,
+      ) => Hosting.getSelected(domainName)
+        .then(({ offer, serviceName }) => (DOMAIN.HOSTING_ORDERED_OFFER
+          .includes(snakeCase(offer).toUpperCase()) ? serviceName : null))
+        .catch(error => (error.code === 404 ? null : $q.reject(error))),
     },
     translations: { value: ['../core', '../domain', '../email', '../hosting', '../domain-operation'], format: 'json' },
   });
@@ -53,6 +67,10 @@ export default /* @ngInject */ ($stateProvider) => {
     reloadOnSearch: false,
     redirectTo: 'app.domain.alldom.information',
     resolve: {
+      associatedHostings: /* @ngInject */ (
+        Domain,
+        domainName,
+      ) => Domain.getAssociatedHosting(domainName),
       currentSection: () => 'domain',
       domain: /* @ngInject */ (Domain, domainName) => Domain
         .getSelected(domainName),
@@ -69,6 +87,15 @@ export default /* @ngInject */ ($stateProvider) => {
           });
         },
       ],
+      orderedHosting: /* @ngInject */ (
+        $q,
+        domainName,
+        Hosting,
+        DOMAIN,
+      ) => Hosting.getSelected(domainName)
+        .then(({ offer, serviceName }) => (DOMAIN.HOSTING_ORDERED_OFFER
+          .includes(snakeCase(offer).toUpperCase()) ? serviceName : null))
+        .catch(error => (error.code === 404 ? null : $q.reject(error))),
     },
     translations: { value: ['../core', '../domain', '../email', '../hosting', '../domain-operation'], format: 'json' },
   });
