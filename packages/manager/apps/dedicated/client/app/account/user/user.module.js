@@ -2,6 +2,7 @@ import set from 'lodash/set';
 
 import './newAccountForm/new-account-form.module';
 import config from '../../config/config';
+import dashboard from './dashboard/user-dahboard.module';
 import supportLevel from './support-level/support-level.module';
 
 angular
@@ -9,6 +10,7 @@ angular
     'ja.qr',
     'ngOvhUtils',
     'ovhSignupApp',
+    dashboard,
     supportLevel,
   ])
   .constant('UserAccount.constants', {
