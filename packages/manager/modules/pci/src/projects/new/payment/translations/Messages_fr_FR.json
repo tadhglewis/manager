@@ -17,5 +17,7 @@
   "pci_project_new_payment_dlp_explain": "Dans le cadre du programme DLP, vous disposez d’un compte prépayé dédié.",
   "pci_project_new_payment_dlp_amount": "Montant du compte : {{ amount }}",
   "pci_project_new_payment_welcome": "Bienvenue chez Public Cloud",
-  "pci_project_new_payment_almost_done": "Vous y êtes presque…"
+  "pci_project_new_payment_almost_done": "Vous y êtes presque…",
+  "pci_project_new_payment_black_friday": "Black Friday",
+  "pci_project_new_payment_black_friday_info": "Du 27 novembre au 3 décembre, OVH double votre crédit*"
 }

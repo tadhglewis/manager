@@ -35,5 +35,15 @@ pci-project-new-payment { /* stylelint-disable-line */
         }
       }
     }
+
+    .black-friday {
+      color: black;
+      font-size: 14px;
+      .oui-status {
+        background-color: black;
+        color: white;
+        line-height: 1rem;
+      }
+    }
   }
 }
