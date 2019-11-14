@@ -20,5 +20,6 @@
    "user_account_support_level_section_premium_description": "Un accès direct à nos experts pour un accompagnement à la configuration et à l’utilisation de votre solution au quotidien, et dans les moments critiques.",
    "user_account_support_level_section_business_description": "Un service client 24/7 avec un temps de réponse optimisé adapté à des enjeux  majeurs.",
    "user_account_support_level_section_enterprise_description": "Un service client 24/7 au travers d’une relation privilégiée avec une équipe dédiée pour vous accompagner à relever vos défis business.",
-   "user_account_support_level_section_title_annex_1": "Nos offres supports évoluent. Veuillez noter que par défaut tous nos clients qui ne souscrivent pas à une offre de support bénéficieront de l'offre standard."
+   "user_account_support_level_section_title_annex_1": "Nos offres supports évoluent. Veuillez noter que par défaut tous nos clients qui ne souscrivent pas à une offre de support bénéficieront de l'offre standard.",
+   "user_account_support_level_section_title_annex_all_available": "Tout client OVH est par défaut basculé vers notre niveau de support Standard s’il ne souscrit pas à une offre de support spécifique."
 }
