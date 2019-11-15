@@ -49,8 +49,8 @@
             </oui-tile>
         </div>
         <div class="col-xm-12 col-md-4">
-            <oui-tile 
-                data-heading="{{ ::'common_tile_subscription' | translate }}"
+            <oui-tile
+                data-heading="{{ ::'veeam_common_tile_subscription' | translate }}"
                 data-loading="$ctrl.subscriptionInfos.loading"
                 class="oui-tile-h-100 h-100">
                 <oui-tile-definition data-ng-if="$ctrl.subscriptionInfos.loading">
@@ -66,8 +66,8 @@
                 </oui-tile-definition>
                 <div data-ng-if="!$ctrl.subscriptionInfos.loading">
                     <oui-tile-definition
-                        data-ng-if="$ctrl.subscriptionInfos.data.offer" 
-                        data-term="{{ ::'common_tile_subscription_offer' | translate }}" data-description="{{ ::$ctrl.subscriptionInfos.data.offer }}">
+                        data-ng-if="$ctrl.subscriptionInfos.data.offer"
+                        data-term="{{ ::'veeam_common_tile_subscription_offer' | translate }}" data-description="{{ ::$ctrl.subscriptionInfos.data.offer }}">
                         <oui-action-menu
                             data-compact
                             data-align="end"
@@ -80,8 +80,8 @@
                         </oui-action-menu>
                     </oui-tile-definition>
                     <oui-tile-definition
-                        data-term="{{($ctrl.subscriptionInfos.data.renew.forced || $ctrl.subscriptionInfos.data.renew.automatic) ? 'common_tile_subscription_autorenew' : 'common_tile_subscription_expiration_date' | translate}}"
-                        data-description="{{ ::$ctrl.subscriptionInfos.data.expiration | momentFormat:'LL' }}">
+                        data-term="{{($ctrl.subscriptionInfos.data.renew.forced || $ctrl.subscriptionInfos.data.renew.automatic) ? 'veeam_common_tile_subscription_autorenew' : 'veeam_common_tile_subscription_expiration_date' | translate}}"
+                        data-description="{{ :: $ctrl.constructor.formatDate($ctrl.subscriptionInfos.data.expiration) }}">
                         <oui-action-menu
                             data-compact
                             data-align="end"
@@ -94,20 +94,20 @@
                         </oui-action-menu>
                     </oui-tile-definition>
                     <oui-tile-definition
-                        data-term="{{::'common_tile_subscription_contact' | translate}}">
+                        data-term="{{::'veeam_common_tile_subscription_contact' | translate}}">
                         <oui-tile-description>
                             <ul class="list-unstyled">
                                 <li>
                                     <span data-ng-bind="::$ctrl.subscriptionInfos.data.contactAdmin"></span>
-                                    <small data-translate="common_tile_subscription_contact_admin"></small>
+                                    <small data-translate="veeam_common_tile_subscription_contact_admin"></small>
                                 </li>
                                 <li>
                                     <span data-ng-bind="::$ctrl.subscriptionInfos.data.contactBilling"></span>
-                                    <small data-translate="common_tile_subscription_contact_billing"></small>
+                                    <small data-translate="veeam_common_tile_subscription_contact_billing"></small>
                                 </li>
                                 <li>
                                     <span data-ng-bind="::$ctrl.subscriptionInfos.data.contactTech"></span>
-                                    <small data-translate="common_tile_subscription_contact_technical"></small>
+                                    <small data-translate="veeam_common_tile_subscription_contact_technical"></small>
                                 </li>
                             </ul>
                         </oui-tile-description>
@@ -120,8 +120,8 @@
                         </oui-action-menu>
                     </oui-tile-definition>
                     <oui-tile-definition
-                        data-term="{{ ::'common_tile_subscription_creation_date' | translate }}"
-                        data-description="{{ ::$ctrl.subscriptionInfos.data.creation | momentFormat:'LL' }}">
+                        data-term="{{ ::'veeam_common_tile_subscription_creation_date' | translate }}"
+                        data-description="{{ ::$ctrl.constructor.formatDate($ctrl.subscriptionInfos.data.creation) }}">
                     </oui-tile-definition>
                 </div>
             </oui-tile>

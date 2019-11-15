@@ -27,5 +27,19 @@
   "veeam_action_upgrade_offer_no_upgrade": "L'offre {{offer}} ne peut être augmenter pour le moment.",
   "veeam_action_add_storage_unavailable_offer": "L'offre {{offer}} ne vous permet pas d'ajouter des espaces de stockage.",
   "veeam_action_add_storage_unavailable_storage_number": "Vous avez atteint le nombre maximal d'espace de stockage. L'ajout est désactivé.",
-  "veeam_action_add_storage_unavailable_usage_percentage": "Impossible d'ajouter un espace de stockage si vous n'utilisez pas au moins {{usagePercentage}}% de votre espace disponible."
+  "veeam_action_add_storage_unavailable_usage_percentage": "Impossible d'ajouter un espace de stockage si vous n'utilisez pas au moins {{usagePercentage}}% de votre espace disponible.",
+  "veeam_common_action_unavailable": "Action indisponible",
+  "veeam_common_cancel": "Annuler",
+  "veeam_common_edit": "Modifier",
+  "veeam_common_manage": "Gérer",
+  "veeam_common_term_and_contracts": "Termes et contrats",
+  "veeam_common_term_and_contracts_accept": "Je certifie avoir lu et accepté les termes et contrats.",
+  "veeam_common_tile_subscription": "Abonnement",
+  "veeam_common_tile_subscription_contact": "Contacts",
+  "veeam_common_tile_subscription_contact_admin": "Administrateur",
+  "veeam_common_tile_subscription_contact_billing": "Facturation",
+  "veeam_common_tile_subscription_contact_technical": "Technique",
+  "veeam_common_tile_subscription_creation_date": "Date de création",
+  "veeam_common_tile_subscription_offer": "Offre",
+  "veeam_common_tile_subscription_autorenew": "Renouvellement automatique"
 }

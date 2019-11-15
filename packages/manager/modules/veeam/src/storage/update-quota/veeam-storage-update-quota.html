@@ -1,12 +1,12 @@
 <form novalidate name="form" data-ng-submit="form.$valid && VeeamStorageUpdateQuotaCtrl.confirm()">
-    <oui-modal 
+    <oui-modal
         data-title="{{:: 'veeam_storage_update_quota_title' | translate}}"
         data-primary-label="{{ ::'veeam_storage_update_quota_confirm' | translate }}"
         data-secondary-action="VeeamStorageUpdateQuotaCtrl.cancel()"
-        data-secondary-label="{{ ::'common_cancel' | translate }}"
+        data-secondary-label="{{ ::'veeam_common_cancel' | translate }}"
         data-on-dismiss="VeeamStorageUpdateQuotaCtrl.cancel()"
         data-loading="VeeamStorageUpdateQuotaCtrl.capabilities.loading || VeeamStorageUpdateQuotaCtrl.updateQuota.loading">
-        
+
         <p class="oui-modal__text" data-translate="veeam_storage_update_quota_information"
             data-translate-values="{maxquota: VeeamStorageUpdateQuotaCtrl.capabilities.data.maxQuota}"></p>
         <oui-field data-label="{{ ::'veeam_quota' | translate }}">

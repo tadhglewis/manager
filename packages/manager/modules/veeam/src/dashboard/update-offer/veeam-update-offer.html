@@ -13,8 +13,8 @@
                     <p class="oui-modal__text" data-translate="veeam_update_offer_information" data-translate-values="{ price: VeeamUpdateOfferCtrl.orderInfo.data.price.prices.withoutTax.text }"></p>
                 </div>
                 <cui-agreements data-ng-if="!VeeamUpdateOfferCtrl.isModalLoading()"
-                                data-contract-list-text="{{:: 'common_term_and_contracts' | translate}}"
-                                data-checkbox-text="{{:: 'common_term_and_contracts_accept' | translate}}"
+                                data-contract-list-text="{{:: 'veeam_common_term_and_contracts' | translate}}"
+                                data-checkbox-text="{{:: 'veeam_common_term_and_contracts_accept' | translate}}"
                                 data-agreements="VeeamUpdateOfferCtrl.orderInfo.data.price.contracts"
                                 data-on-check="VeeamUpdateOfferCtrl.onAcceptAgreements(value)"></cui-agreements>
             </div>
