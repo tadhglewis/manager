@@ -1,4 +1,5 @@
 export default class VeeamStorageAddCtrl {
+  /* @ngInject */
   constructor($uibModalInstance, serviceName, VeeamService) {
     this.$uibModalInstance = $uibModalInstance;
     this.serviceName = serviceName;
